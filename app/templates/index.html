@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad Final - Curso Infraestructura - Banco CREDICOOP</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">   
+</head>
+<body>
+    <div id="container">
+        <h1>Actividad Final - Curso Infraestructura - Banco CREDICOOP</h1>
+        <h2>Participantes:</h2>
+        <ul>
+            {% for participante in participantes %}
+                <li>{{ participante.NOMBRE_ALUMNO }} - {{ participante.CARRERA }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
