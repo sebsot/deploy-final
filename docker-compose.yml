@@ -1,6 +1,7 @@
 version: "2"
 services:
   app:
+    image: glechner99/flask-app
     build: ./app
     links:
       - db
@@ -15,11 +16,18 @@ services:
       - "32000:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysql-data-volume:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    volumeMounts:
+      - name: mysql-data-volume
+        mountPath: /var/lib/mysql
+      - name: mysql-init-script
+        mountPath: /docker-entrypoint-initdb.d/init.sql
+        subPath: init.sql
     labels:
       kompose.service.type: LoadBalancer
 
 volumes:
-  mysql-data-volume: {}
+  - name: mysql-data-volume
+    persistentVolumeClaim:
+      claimName: mysql-data-claim
+    
+
