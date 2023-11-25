@@ -26,7 +26,7 @@ services:
       kompose.service.type: LoadBalancer
 
 volumes:
-  - name: mysql-data-volume
+  mysql-data-volume:
     persistentVolumeClaim:
       claimName: mysql-data-claim
     
