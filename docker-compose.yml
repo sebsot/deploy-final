@@ -7,6 +7,8 @@ services:
       - db
     ports:
       - "5000:5000"
+    depends_on:
+      - db
     labels:
       kompose.service.type: LoadBalancer
 
@@ -17,19 +19,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - mysql-data-volume:/var/lib/mysql
-    configs:
-      - source: mysql-init-script
-        target: /docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./data:/var/lib/mysql
     labels:
       kompose.service.type: LoadBalancer
-
-configs:
-  mysql-init-script:
-    file: ./db/init.sql
-
-volumes:
-  mysql-data-volume:
-    persistentVolumeClaim:
-      claimName: mysql-data-claim
 
